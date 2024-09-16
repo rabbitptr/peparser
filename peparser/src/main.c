@@ -47,6 +47,18 @@ int main() {
 	printf("\tAddress of entry point: 0x00%X\n", (baseAddr + pOptHdr->AddressOfEntryPoint));
 	printf("\tImage Base: 0x00%X\n", pOptHdr->ImageBase);
 
+	printf("----IMAGE SECTION HEADER----\n");
+
+	PIMAGE_SECTION_HEADER pCurSection = (PIMAGE_SECTION_HEADER)((DWORD_PTR)pOptHdr + pFileHdr->SizeOfOptionalHeader);
+
+	for (size_t i = 0; i < pFileHdr->NumberOfSections; i++) {
+		printf("\t %s:\n", (CHAR*)pCurSection->Name);
+		printf("\t\t Virtual Address: 0x00%X\n", (baseAddr + pCurSection->VirtualAddress));
+		printf("\t\t Virtual Size: 0x%X\n", (pCurSection->Misc.VirtualSize));
+		printf("\t\t Physical Address: 0x00%X\n", (baseAddr + pCurSection->Misc.PhysicalAddress));
+		printf("\t\t Physical Size: 0x%X\n", (pCurSection->SizeOfRawData));
+		pCurSection++;
+	}
 
 	return 0;
 
