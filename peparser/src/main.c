@@ -30,6 +30,10 @@ int main() {
 
 	printSectHdrData(baseAddr, pOptHdr, pFileHdr);
 
+	//Parsing Import Table
+
+	PPEB pPeb = (PPEB)__readfsdword(0x30);
+
 	return 0;
 
 }
